@@ -26,8 +26,8 @@ def test():
     # fill NAN with the median values
     data = data.fillna(value=data.median(axis=0, skipna=True))
 
-    # normalize with MinMaxScaler in range [-1, 1]
-    scaler = MinMaxScaler(feature_range=(-1, 1), copy=True).fit(data)
+    # normalize with MinMaxScaler in range [0, 1]
+    scaler = MinMaxScaler(feature_range=(0, 1), copy=True).fit(data)
     data = pd.DataFrame(data=scaler.transform(data), columns=data.columns)
 
     # ================================================================ #
