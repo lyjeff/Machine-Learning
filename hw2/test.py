@@ -22,7 +22,7 @@ def test():
     # ================================================================ #
     # if do some operations with training data,
     # do the same operations to the testing data in this block
-    
+
     # fill NAN with the median values
     data = data.fillna(value=data.median(axis=0, skipna=True))
 

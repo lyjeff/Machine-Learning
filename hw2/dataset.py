@@ -1,14 +1,10 @@
 import pandas as pd
 import numpy as np
-from pathlib import Path
 from torch.utils.data import Dataset
-from sklearn.preprocessing import MinMaxScaler, StandardScaler, scale
-import os
+from sklearn.preprocessing import MinMaxScaler
 
 class MLDataset(Dataset):
-    def __init__(self):
-        # load data
-        data = pd.read_csv('train.csv', encoding='utf-8')
+    def __init__(self, data):
 
         # label's columns name, no need to rewrite
         label_col = [
@@ -22,28 +18,26 @@ class MLDataset(Dataset):
         # For example, do normalization or dimension Reduction.
         # Some of columns have "nan", need to drop row or fill with value first
         # For example:
-        
+
         # fill NAN with the median values
         data = data.fillna(value=data.median(axis=0, skipna=True))
 
-        # normalize with MinMaxScaler in range [-1, 1]
+        # normalize with MinMaxScaler in range [0, 1]
         scaler = MinMaxScaler(feature_range=(0, 1), copy=True).fit(data)
-        # # scaler = StandardScaler(copy=True).fit(data)
-        # data = scale(data, copy=True)
         data = pd.DataFrame(data=scaler.transform(data), columns=data.columns)
-        
+
         self.label = data[label_col]
-        self.train = data.drop(label_col, axis=1)
-        
+        self.data = data.drop(label_col, axis=1)
+
         # ================================================================================ #
 
     def __len__(self):
         #  no need to rewrite
-        return len(self.train)
+        return len(self.data)
 
     def __getitem__(self, index):
         # transform dataframe to numpy array, no need to rewrite
-        x = self.train.iloc[index, :].values
+        x = self.data.iloc[index, :].values
         y = self.label.iloc[index, :].values
         return x, y
 
