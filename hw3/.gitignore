@@ -1,0 +1,7 @@
+__pycache__/
+data/
+result/
+weights/
+~*
+*.zip
+*.csv
