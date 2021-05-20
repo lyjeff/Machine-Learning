@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 from datasets.dataloader import make_train_dataloader
-from models.model import ExampleCNN
-from models.model import MyCNN
+from models.model import (ExampleCNN, MyCNN)
+from torchsummary import summary
 
 import os
 import copy
@@ -28,10 +28,12 @@ def train(model_name, batch_size, epochs, learning_rate, device, base_path, save
     # set cnn model
     if model_name == "ExampleCNN":
         model = ExampleCNN()
-    else:
+    elif model_name == "MyCNN":
         model = MyCNN()
 
     model = model.to(device)
+    # summary(model, (3, 224, 224))
+    # os._exit(0)
 
     # set optimizer and loss function
     optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)
