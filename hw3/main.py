@@ -62,6 +62,14 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 	parameters['valid_accuracy'] = pd.Series(valid_accuracy_list)
 	parameters['test_accuracy'] = pd.Series(test_accuracy_list)
 
+	parameters.sort_values(
+		by=['test_accuracy', 'valid_accuracy'],
+		axis=0,
+		ascending=False,
+		inplace=True,
+		na_position='last'
+	)
+
 	parameters.to_csv(os.path.join(base_path, f'{save_name}.csv'), na_rep='NAN', index=False, float_format='%.4f')
 
 if __name__ == '__main__':
