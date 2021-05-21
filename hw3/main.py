@@ -25,6 +25,9 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 		state_name = f"{batch_size}_{epochs}_{learning_rate}"
 		save_path = os.path.join(base_path, save_name, state_name)
 
+		if not os.path.exists(os.path.join(base_path, save_name)):
+			os.mkdir(os.path.join(base_path, save_name))
+
 		if not os.path.exists(save_path):
 			os.mkdir(save_path)
 
@@ -56,25 +59,25 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 		valid_accuracy_list.append(valid_accuracy)
 		test_accuracy_list.append(test_accuracy)
 
-	parameters['train_loss'] = pd.Series(train_loss_list)
-	parameters['valid_loss'] = pd.Series(valid_loss_list)
-	parameters['train_accuracy'] = pd.Series(train_accuracy_list)
-	parameters['valid_accuracy'] = pd.Series(valid_accuracy_list)
-	parameters['test_accuracy'] = pd.Series(test_accuracy_list)
+		parameters['train_loss'] = pd.Series(train_loss_list)
+		parameters['valid_loss'] = pd.Series(valid_loss_list)
+		parameters['train_accuracy'] = pd.Series(train_accuracy_list)
+		parameters['valid_accuracy'] = pd.Series(valid_accuracy_list)
+		parameters['test_accuracy'] = pd.Series(test_accuracy_list)
 
-	parameters.sort_values(
-		by=['test_accuracy', 'valid_accuracy'],
-		axis=0,
-		ascending=False,
-		inplace=True,
-		na_position='last'
-	)
+		parameters.sort_values(
+			by=['test_accuracy', 'valid_accuracy'],
+			axis=0,
+			ascending=False,
+			inplace=True,
+			na_position='last'
+		)
 
-	parameters.to_csv(os.path.join(base_path, f'{save_name}.csv'), na_rep='NAN', index=False, float_format='%.4f')
+		parameters.to_csv(os.path.join(base_path, f'{save_name}.csv'), sep='\t', na_rep='NAN', index=False, float_format='%.4f')
 
 if __name__ == '__main__':
 	# part 1
 	main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
 
 	# part 2
-	main(model_name="MyCNN", parameters_name='parameters.csv', save_name="part_2_result", cuda_device=0)
+	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_2_result", cuda_device=0)

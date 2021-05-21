@@ -121,3 +121,39 @@ def train(model_name, batch_size, epochs, learning_rate, device, base_path, save
     plt.savefig(os.path.join(save_path, "Training_accuracy.jpg"))
 
     return train_loss, valid_loss, train_accuracy, valid_accuracy
+
+if __name__ == '__main__':
+    cuda_device = 0
+    batch_size =32
+    epochs = 40
+    learning_rate = 0.01
+    model_name = "ExampleCNN"
+
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    device = torch.device(f'cuda:{cuda_device}' if torch.cuda.is_available() else 'cpu')
+
+    state_name = f"{batch_size}_{epochs}_{learning_rate}"
+    save_name = "train_result"
+
+    save_path = os.path.join(base_path, save_name, state_name)
+
+    if not os.path.exists(os.path.join(base_path, save_name)):
+        os.mkdir(os.path.join(base_path, save_name))
+
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
+
+    (
+        train_loss,
+        valid_loss,
+        train_accuracy,
+        valid_accuracy
+    ) = train(
+        model_name=model_name,
+        batch_size=batch_size,
+        epochs=epochs,
+        learning_rate=learning_rate,
+        device=device,
+        base_path=base_path,
+        save_path=save_path
+    )
