@@ -36,7 +36,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 			valid_loss,
 			train_accuracy,
 			valid_accuracy
-		) = train(
+		) = train (
 			model_name=model_name,
 			batch_size=batch_size,
 			epochs=epochs,
@@ -46,7 +46,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 			save_path=save_path
 		)
 
-		test_accuracy = test(
+		test_accuracy = test (
 			model_name=model_name,
 			device=device,
 			base_path=base_path,
@@ -77,7 +77,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 
 if __name__ == '__main__':
 	# part 1
-	main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
+	# main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
 
 	# part 2
-	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_2_result", cuda_device=0)
+	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_3_result", cuda_device=0)
