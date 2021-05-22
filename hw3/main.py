@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import torch
+import time
 from train import train
 from test import test
 
@@ -11,6 +12,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 	train_accuracy_list = []
 	valid_accuracy_list = []
 	test_accuracy_list = []
+	time_list = []
 
 	base_path = os.path.dirname(os.path.abspath(__file__))
 	parameters = pd.read_csv(os.path.join(base_path, parameters_name), header=0)
@@ -30,6 +32,8 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 
 		if not os.path.exists(save_path):
 			os.mkdir(save_path)
+
+		start_time = time.time()
 
 		(
 			train_loss,
@@ -53,6 +57,10 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 			save_path=save_path
 		)
 
+		end_time = time.time()
+		cost_time = end_time - start_time
+
+		time_list.append(cost_time)
 		train_loss_list.append(train_loss)
 		valid_loss_list.append(valid_loss)
 		train_accuracy_list.append(train_accuracy)
@@ -64,6 +72,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 		parameters['train_accuracy'] = pd.Series(train_accuracy_list)
 		parameters['valid_accuracy'] = pd.Series(valid_accuracy_list)
 		parameters['test_accuracy'] = pd.Series(test_accuracy_list)
+		parameters['cost_time'] = pd.Series(time_list)
 
 		parameters.sort_values(
 			by=['test_accuracy', 'valid_accuracy'],
@@ -80,4 +89,4 @@ if __name__ == '__main__':
 	# main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
 
 	# part 2
-	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_3_result", cuda_device=0)
+	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_5_result", cuda_device=0)

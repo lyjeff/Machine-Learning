@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from datasets.dataloader import make_train_dataloader
 from models.model import (ExampleCNN, MyCNN)
+from torchvision.models import vgg19
 from torchsummary import summary
 
 import os
@@ -30,6 +31,8 @@ def train(model_name, batch_size, epochs, learning_rate, device, base_path, save
         model = ExampleCNN()
     elif model_name == "MyCNN":
         model = MyCNN()
+    elif model_name == "VGG19":
+        model = vgg19(pretrained=True)
 
     model = model.to(device)
     # summary(model, (3, 224, 224))
