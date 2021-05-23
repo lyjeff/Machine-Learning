@@ -59,8 +59,10 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 
 		end_time = time.time()
 		cost_time = end_time - start_time
+		struct_time = time.gmtime(cost_time) # 轉換成時間元組
+		timeString = time.strftime("%H:%M:%S", struct_time)
 
-		time_list.append(cost_time)
+		time_list.append(timeString)
 		train_loss_list.append(train_loss)
 		valid_loss_list.append(valid_loss)
 		train_accuracy_list.append(train_accuracy)
@@ -89,4 +91,4 @@ if __name__ == '__main__':
 	# main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
 
 	# part 2
-	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_5_result", cuda_device=0)
+	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_6_result", cuda_device=0)
