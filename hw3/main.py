@@ -88,7 +88,7 @@ def main(model_name, parameters_name, save_name, cuda_device=0):
 
 if __name__ == '__main__':
 	# part 1
-	# main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
+	main(model_name="ExampleCNN", parameters_name='parameters.csv', save_name="part_1_result", cuda_device=0)
 
 	# part 2
-	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_6_result", cuda_device=0)
+	main(model_name="MyCNN", parameters_name='parameters_test.csv', save_name="part_2_result", cuda_device=0)
