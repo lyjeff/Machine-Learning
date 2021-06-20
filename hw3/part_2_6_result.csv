@@ -1,3 +1,0 @@
-batch_size	epochs	learning_rate	train_loss	valid_loss	train_accuracy	valid_accuracy	test_accuracy
-32	70	0.0100	0.1715	0.3179	0.9303	0.8600	87.6000
-32	100	0.0100	0.0698	0.2978	0.9730	0.8960	87.2000
